@@ -11,39 +11,30 @@ function getComputerChoice() {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    let winner;
-
-    switch(true) {
+function determineWinner(playerSelection, computerSelection) {
+    switch (true) {
         case (playerSelection === "ROCK" && computerSelection === "ROCK"):
-            winner = "Tie";
-            break;
+            return "Tie";
         case (playerSelection === "ROCK" && computerSelection === "PAPER"):
-            winner = "Computer";
-            break;
+            return "Computer";
         case (playerSelection === "ROCK" && computerSelection === "SCISSORS"):
-            winner = "Player";
-            break;
+            return "Player";
         case (playerSelection === "PAPER" && computerSelection === "ROCK"):
-            winner = "Player";
-            break;
+            return "Player";
         case (playerSelection === "PAPER" && computerSelection === "PAPER"):
-            winner = "Tie";
-            break;
+            return "Tie";
         case (playerSelection === "PAPER" && computerSelection === "SCISSORS"):
-            winner = "Computer";
-            break;
+            return "Computer";
         case (playerSelection === "SCISSORS" && computerSelection === "ROCK"):
-            winner = "Tie";
-            break;
+            return "Tie";
         case (playerSelection === "SCISSORS" && computerSelection === "PAPER"):
-            winner = "Player";
-            break;
+            return "Player";
         case (playerSelection === "SCISSORS" && computerSelection === "SCISSORS"):
-            winner = "Computer"
-            break;
+            return "Computer";
     }
+}
 
+function getEndOfRoundMessage(playerSelection, computerSelection, winner) {
     switch(winner) {
         case "Player":
             return `You win! ${playerSelection} beats ${computerSelection}.`
@@ -55,3 +46,8 @@ function playRound(playerSelection, computerSelection) {
             return "Error!";
     }
 }
+
+function playRound(playerSelection, computerSelection) {
+    const winner = determineWinner(playerSelection, computerSelection);
+    return getEndOfRoundMessage(playerSelection, computerSelection, winner);
+   }
