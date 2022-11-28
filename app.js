@@ -47,7 +47,51 @@ function getEndOfRoundMessage(playerSelection, computerSelection, winner) {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    const winner = determineWinner(playerSelection, computerSelection);
-    return getEndOfRoundMessage(playerSelection, computerSelection, winner);
-   }
+function game() {
+    // Declare variables
+    let playerWins = 0;
+    let computerWins = 0;
+    let ties = 0;
+
+    // Game loop
+    for (let i = 0; i < 5; i++) {
+
+        // Declare loop variables
+        let playerSelection, winner;
+
+        // User entry
+        do {
+            playerSelection = prompt('Choice ("ROCK", "PAPER", or "SCISSORS")');
+            if (playerSelection !== null) {
+                playerSelection = playerSelection.toUpperCase();
+            }
+        } while ((playerSelection !== "ROCK") && (playerSelection !== "PAPER") && (playerSelection !== "SCISSORS") && playerSelection !== null);
+
+        if (playerSelection === null) {
+            console.log("Quitting.");
+            return;
+        }
+
+        // Computer entry
+        let computerSelection = getComputerChoice();
+
+        // Determine winner
+        winner = determineWinner(playerSelection, computerSelection);
+        switch (winner) {
+            case "Player":
+                playerWins++;
+                break;
+            case "Computer":
+                computerWins++;
+                break;
+            case "Tie":
+                ties++;
+        }
+        console.log(getEndOfRoundMessage(playerSelection, computerSelection, winner));
+    }
+
+    // Ending messages
+    console.log(`Player: ${playerWins}`);
+    console.log(`Computer: ${computerWins}`);
+    console.log(`Ties: ${ties}`);
+}
